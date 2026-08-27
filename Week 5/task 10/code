@@ -1,0 +1,46 @@
+import java.util.*;
+
+public class Main {
+
+    // Function to find all occurrences of pattern in text
+    public static List<Integer> search(String text, String pattern) {
+
+        int n = text.length();
+        int m = pattern.length();
+
+        List<Integer> result = new ArrayList<>();
+
+        // Slide pattern over text one position at a time
+        for (int i = 0; i <= n - m; i++) {
+
+            int j;
+
+            // Check whether pattern matches starting at index i
+            for (j = 0; j < m; j++) {
+
+                if (text.charAt(i + j) != pattern.charAt(j)) {
+                    break;
+                }
+            }
+
+            // If all characters matched
+            if (j == m) {
+                result.add(i);
+            }
+        }
+
+        return result;
+    }
+
+    public static void main(String[] args) {
+
+        String text = "aabaacaadaabaaba";
+        String pattern = "aaba";
+
+        List<Integer> result = search(text, pattern);
+
+        for (int index : result) {
+            System.out.print(index + " ");
+        }
+    }
+}
