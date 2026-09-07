@@ -1,0 +1,50 @@
+class Result {
+
+    public static List<Integer> circularPalindromes(String s) {
+
+        int n = s.length();
+        List<Integer> result = new ArrayList<Integer>();
+
+        // Create doubled string
+        String doubled = s + s;
+
+        for (int start = 0; start < n; start++) {
+
+            int maxLength = 1;
+
+            // Check every possible center
+            for (int center = start; center < start + n; center++) {
+
+                // Odd length palindrome
+                int left = center;
+                int right = center;
+
+                while (left >= start &&
+                       right < start + n &&
+                       doubled.charAt(left) == doubled.charAt(right)) {
+
+                    maxLength = Math.max(maxLength, right - left + 1);
+                    left--;
+                    right++;
+                }
+
+                // Even length palindrome
+                left = center;
+                right = center + 1;
+
+                while (left >= start &&
+                       right < start + n &&
+                       doubled.charAt(left) == doubled.charAt(right)) {
+
+                    maxLength = Math.max(maxLength, right - left + 1);
+                    left--;
+                    right++;
+                }
+            }
+
+            result.add(maxLength);
+        }
+
+        return result;
+    }
+}
