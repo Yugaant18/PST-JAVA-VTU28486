@@ -1,3 +1,6 @@
+import java.io.*;
+import java.util.*;
+
 class Result {
 
     public static List<Integer> circularPalindromes(String s) {
@@ -5,17 +8,15 @@ class Result {
         int n = s.length();
         List<Integer> result = new ArrayList<Integer>();
 
-        // Create doubled string
         String doubled = s + s;
 
         for (int start = 0; start < n; start++) {
 
             int maxLength = 1;
 
-            // Check every possible center
             for (int center = start; center < start + n; center++) {
 
-                // Odd length palindrome
+                // Odd-length palindrome
                 int left = center;
                 int right = center;
 
@@ -24,11 +25,12 @@ class Result {
                        doubled.charAt(left) == doubled.charAt(right)) {
 
                     maxLength = Math.max(maxLength, right - left + 1);
+
                     left--;
                     right++;
                 }
 
-                // Even length palindrome
+                // Even-length palindrome
                 left = center;
                 right = center + 1;
 
@@ -37,6 +39,7 @@ class Result {
                        doubled.charAt(left) == doubled.charAt(right)) {
 
                     maxLength = Math.max(maxLength, right - left + 1);
+
                     left--;
                     right++;
                 }
@@ -46,5 +49,31 @@ class Result {
         }
 
         return result;
+    }
+}
+
+public class Solution {
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader bufferedReader =
+            new BufferedReader(new InputStreamReader(System.in));
+
+        BufferedWriter bufferedWriter =
+            new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int n = Integer.parseInt(bufferedReader.readLine().trim());
+
+        String s = bufferedReader.readLine().trim();
+
+        List<Integer> result = Result.circularPalindromes(s);
+
+        for (int value : result) {
+            bufferedWriter.write(String.valueOf(value));
+            bufferedWriter.newLine();
+        }
+
+        bufferedReader.close();
+        bufferedWriter.close();
     }
 }
