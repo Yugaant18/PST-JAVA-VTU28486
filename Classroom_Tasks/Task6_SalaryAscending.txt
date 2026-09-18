@@ -1,14 +1,39 @@
-package ClassRoom_Tasks;
-
 import java.util.*;
 import java.util.stream.*;
 
-public class ClassRoom_Task6_SalaryAscending {
+class Employee {
+    private String name;
+    private double salary;
+
+    public Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public static List<Employee> sampleData() {
+        return List.of(
+            new Employee("Alice", 75000.0),
+            new Employee("Bob", 50000.0),
+            new Employee("Charlie", 90000.0)
+        );
+    }
+
+    @Override
+    public String toString() {
+        return name + " ($" + salary + ")";
+    }
+}
+
+public class Main {
     public static void main(String[] args) {
         List<Employee> employees = Employee.sampleData();
 
         List<Employee> sorted = employees.stream()
-                .sorted(Comparator.comparingDouble(e -> e.salary))
+                .sorted(Comparator.comparingDouble(Employee::getSalary))
                 .collect(Collectors.toList());
 
         sorted.forEach(System.out::println);
