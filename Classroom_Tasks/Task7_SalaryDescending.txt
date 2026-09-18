@@ -1,14 +1,45 @@
-package ClassRoom_Tasks;
-
 import java.util.*;
 import java.util.stream.*;
 
-public class ClassRoom_Task7_SalaryDescending {
+// Non-public helper class inside the same file
+class Employee {
+    private final int id;
+    private final String name;
+    private final double salary;
+
+    public Employee(int id, String name, double salary) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public static List<Employee> sampleData() {
+        return Arrays.asList(
+            new Employee(101, "Arun", 85000.0),
+            new Employee(102, "Kavya", 95000.0),
+            new Employee(103, "Dinesh", 62000.0),
+            new Employee(104, "Sneha", 110000.0)
+        );
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Employee[ID=%d, Name=%-7s, Salary=₹%.2f]", id, name, salary);
+    }
+}
+
+public class Main {
     public static void main(String[] args) {
         List<Employee> employees = Employee.sampleData();
 
+        // Sort descending by salary using method reference
         List<Employee> sorted = employees.stream()
-                .sorted(Comparator.comparingDouble((Employee e) -> e.salary).reversed())
+                .filter(Objects::nonNull)
+                .sorted(Comparator.comparingDouble(Employee::getSalary).reversed())
                 .collect(Collectors.toList());
 
         sorted.forEach(System.out::println);
