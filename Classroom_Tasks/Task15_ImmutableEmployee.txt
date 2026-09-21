@@ -1,5 +1,3 @@
-package ClassRoom_Tasks;
-
 final class Employee {
 
     private final String employeeId;
@@ -28,11 +26,12 @@ final class Employee {
         if (amount <= 0) {
             throw new IllegalArgumentException("Raise amount must be positive");
         }
+
         return new Employee(employeeId, name, salary + amount);
     }
 }
 
-public class ClassRoom_Task15_ImmutableEmployee {
+public class Main {
 
     public static void main(String[] args) {
 
